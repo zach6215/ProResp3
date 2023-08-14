@@ -31,7 +31,6 @@ namespace ProResp3.Commands
             try
             {
                 mccBoard = new MccBoardConnection();
-
             }
             catch
             {
