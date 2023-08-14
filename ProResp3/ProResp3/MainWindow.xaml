@@ -39,7 +39,8 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Button x:Name="checkAllValvesButton" Content="Check All Valves"
-                    Grid.Column="0" Grid.Row="1"/>
+                    Grid.Column="0" Grid.Row="1"
+                    Command="{Binding CheckAllValves}"/>
             <Button x:Name="createDataFileButton" Content="Create Data File"
                     Command="{Binding CreateFileCommand}" CommandParameter="DataFile"
                     Grid.Column="0" Grid.Row="3"/>
@@ -58,7 +59,7 @@
                              MinWidth="30" MaxHeight="20" MaxLines="1"/>
             </Grid>
             <Button x:Name="startButton" Content="Start Experiment"
-                    Command="{Binding UpdateViewCommand}" CommandParameter="Experiment"
+                    Command="{Binding StartButtonClick}" CommandParameter="Experiment"
                     Grid.Column="0" Grid.Row="7"/>
         </Grid>
         <Grid Grid.Column="3" Grid.Row="1">

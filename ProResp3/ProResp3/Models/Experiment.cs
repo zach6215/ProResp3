@@ -9,7 +9,7 @@ namespace ProResp3.Models
     using System.Collections.Generic;
     using System.Windows.Threading;
 
-    internal class Experiment
+    public class Experiment
     {
         private LI7000Connection _LI7000;
         private Valve _activeValve;
@@ -24,7 +24,7 @@ namespace ProResp3.Models
         public string DataHeader { get; private set; }
         public string FileLocation { get; set; }
 
-        public Experiment(List<int> argActiveValveNums, int argValveSwitchTimeMin)
+        public Experiment(List<int> argActiveValveNums, List<double> argValveWeights, int argValveSwitchTimeMin)
         {
             _activeValveNums = argActiveValveNums;
             _valveSwitchTimeMin = argValveSwitchTimeMin;
