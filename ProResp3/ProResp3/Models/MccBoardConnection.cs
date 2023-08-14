@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProResp3.ViewModels
+namespace ProResp3.Models
 {
-    internal class ExperimentViewModel : BaseViewModel
+    internal class MccBoardConnection
     {
-
-
 
     }
 }

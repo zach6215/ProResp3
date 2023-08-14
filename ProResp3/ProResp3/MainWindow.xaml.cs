@@ -21,16 +21,29 @@ namespace ProResp3
     /// </summary>
     public partial class MainWindow : Window
     {
-        private List<CheckBox> valveCheckBoxes = new List<CheckBox>();
-
         public MainWindow()
         {
             InitializeComponent();
 
             DataContext = new MainViewModel();
+            this.selectValveListBox.ItemsSource = MakeValveCheckBoxes(Globals.NumValves);
+        }
 
+        private List<CheckBox> MakeValveCheckBoxes(int newAmount)
+        {
+            List<CheckBox> checkBoxes = new List<CheckBox>();
 
+            for (int i = 0; i < newAmount; i++)
+            {
+                CheckBox newCheckBox = new CheckBox();
+                newCheckBox.Name = "valve" + (i + 1).ToString() + "CheckBox";
+                newCheckBox.Content = "Valve " + (i + 1).ToString();
+                checkBoxes.Add(newCheckBox);
 
+                //Add databinding to checkbox
+            }
+
+            return checkBoxes;
         }
     }
 }

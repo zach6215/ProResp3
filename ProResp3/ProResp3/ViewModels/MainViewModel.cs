@@ -6,32 +6,32 @@ using System.Threading.Tasks;
 
 namespace ProResp3.ViewModels
 {
-    using System.Windows.Input;
     using ProResp3.Commands;
+    using System.Windows.Input;
     using System.Windows.Controls;
+    using ProResp3.UserControls;
 
     public class MainViewModel : BaseViewModel
     {
-        private const int _numValves = 24;
-        private List<CheckBox> valveCheckBoxes = new List<CheckBox>();
-        private BaseViewModel _selectedViewModel = new SetupViewModel();
+
+        private BaseViewModel _selectedViewModel;
         private string _dataFilePath = string.Empty;
+        public CheckedValvesCollection _checkBoxWeightRelationship;
+        
 
         public BaseViewModel SelectedViewModel
         {
             get { return _selectedViewModel; }
-            set { _selectedViewModel = value; OnPropertyChanged(nameof(SelectedViewModel)); }
+            set 
+            {   
+                _selectedViewModel = value; 
+                OnPropertyChanged(nameof(SelectedViewModel));
+            }
         }
         public string DataFilePath
         {
             get { return _dataFilePath; }
             set { _dataFilePath = value; OnPropertyChanged(nameof(DataFilePath)); }
-        }
-
-        public List<CheckBox> ValveCheckBoxes
-        {
-            get { return valveCheckBoxes; }
-            set { valveCheckBoxes = value; OnPropertyChanged(nameof(ValveCheckBoxes));}
         }
 
         public ICommand UpdateViewCommand { get; set; }
@@ -43,21 +43,7 @@ namespace ProResp3.ViewModels
             UpdateViewCommand = new UpdateViewCommand(this);
             CreateFileCommand = new CreateFileCommand(this);
 
-            UpdateValveCheckBoxes(_numValves);
-        }
-
-        private void UpdateValveCheckBoxes(int newAmount)
-        {
-            List<CheckBox> checkBoxes = new List<CheckBox>();
-
-            for(int i = 0; i < newAmount; i++)
-            {
-                CheckBox newCheckBox = new CheckBox();
-                newCheckBox.Content = "Valve " + (i + 1).ToString();
-                checkBoxes.Add(newCheckBox);
-            }
-
-            this.ValveCheckBoxes = checkBoxes;
+            this.SelectedViewModel = new SetupViewModel();
         }
     }
 }
