@@ -6,7 +6,18 @@ using System.Threading.Tasks;
 
 namespace ProResp3.ViewModels
 {
+    using ProResp3.Models;
+
     internal class SetupViewModel : BaseViewModel
     {
+        private ValveWeightCollection _valveWeights = new ValveWeightCollection(Globals.NumValves);
+
+        public ValveWeightCollection ValveWeights
+        { 
+            get
+            {
+                return _valveWeights;
+            }
+        }
     }
 }

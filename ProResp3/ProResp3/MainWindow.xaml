@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ProResp3"
         mc:Ignorable="d"
         Title="ProResp | By: Zachary Hall, Abhilash Ambati, Jacob Blauer, and Scott Mattinson" Height="450" Width="800">
-    <Grid>
+    <Grid x:Name="Test">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
             <ColumnDefinition Width="auto"/>
@@ -76,8 +76,7 @@
                 Experiment:
             </TextBlock>
             <ListBox x:Name="selectValveListBox" 
-                     Grid.Column="0" Grid.Row="1"
-                     ItemsSource="{Binding ValveCheckBoxes}">
+                     Grid.Column="0" Grid.Row="1">
             </ListBox>
             <Button x:Name="selectAllValvesButton" Content="Select All Valves"
                     Grid.Column="0" Grid.Row="2"/>

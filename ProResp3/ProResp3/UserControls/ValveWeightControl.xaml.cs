@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 
 namespace ProResp3.UserControls
 {
+    using System.ComponentModel;
     /// <summary>
     /// Interaction logic for ValveWeightControl.xaml
     /// </summary>
