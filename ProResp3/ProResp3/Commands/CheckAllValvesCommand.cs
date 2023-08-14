@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace ProResp3.Commands
 {
-    using System.Windows.Input;
+    using ProResp3.Models;
     using ProResp3.ViewModels;
 
-    public class UpdateViewCommand : ICommand
+    internal class CheckAllValvesCommand : ICommand
     {
+        private MccBoardConnection mccBoard;
         private MainViewModel viewModel;
         public event EventHandler? CanExecuteChanged;
-        public UpdateViewCommand(MainViewModel argViewModel)
+
+        public CheckAllValvesCommand(MainViewModel argViewModel)
         {
             this.viewModel = argViewModel;
         }
@@ -25,14 +28,15 @@ namespace ProResp3.Commands
 
         public void Execute(object? parameter)
         {
-            if(parameter?.ToString() == "Setup")
+            try
             {
-                viewModel.SelectedViewModel = new SetupViewModel();
+                mccBoard = new MccBoardConnection();
             }
-            else if(parameter?.ToString() == "Experiment")
+            catch
             {
-                viewModel.SelectedViewModel = new ExperimentViewModel();
+                return;
             }
+
         }
     }
 }

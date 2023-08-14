@@ -4,41 +4,41 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProResp3.ViewModels
+namespace ProResp3.Collections
 {
     using System.ComponentModel;
     using System.Windows.Data;
-    public class CheckedValvesCollection : INotifyPropertyChanged
+
+    public class ValveWeightCollection : INotifyPropertyChanged
     {
+        string[] _weights;
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        private bool[] _checkBoxChecked;
-
-        public CheckedValvesCollection(int size)
+        public ValveWeightCollection(int size)
         {
-            _checkBoxChecked = new bool[size];
+            _weights = new string[size];
         }
 
-        public bool this[int index]
+        public string this[int index]
         {
-            get
-            {
-                if (index < _checkBoxChecked.Length)
+            get 
+            { 
+                if (index < _weights.Length)
                 {
-                    return _checkBoxChecked[index];
+                    return _weights[index];
                 }
                 else
                 {
                     throw new ArgumentOutOfRangeException($"Index {index} is not in range of current ValveWeightCollection");
                 }
-
+                
             }
 
             set
             {
-                if (index < _checkBoxChecked.Length)
+                if (index < _weights.Length)
                 {
-                    _checkBoxChecked[index] = value;
+                    _weights[index] = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(Binding.IndexerName));
                 }
                 else
@@ -47,7 +47,5 @@ namespace ProResp3.ViewModels
                 }
             }
         }
-
-        
     }
 }

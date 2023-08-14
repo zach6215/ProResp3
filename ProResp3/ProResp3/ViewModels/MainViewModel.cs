@@ -8,8 +8,8 @@ namespace ProResp3.ViewModels
 {
     using ProResp3.Commands;
     using System.Windows.Input;
-    using System.Windows.Controls;
-    using ProResp3.UserControls;
+    using ProResp3.Collections;
+    using ProResp3.Models;
 
     public class MainViewModel : BaseViewModel
     {
@@ -17,7 +17,13 @@ namespace ProResp3.ViewModels
         private BaseViewModel _selectedViewModel;
         private string _dataFilePath = string.Empty;
         public CheckedValvesCollection _checkBoxWeightRelationship;
-        
+        public Experiment experiment;
+
+        public ICommand UpdateViewCommand { get; set; }
+        public ICommand CreateFileCommand { get; set; }
+        public ICommand StartButtonClick { get; set; }
+        public ICommand CheckAllValves { get; set; }
+
 
         public BaseViewModel SelectedViewModel
         {
@@ -34,14 +40,14 @@ namespace ProResp3.ViewModels
             set { _dataFilePath = value; OnPropertyChanged(nameof(DataFilePath)); }
         }
 
-        public ICommand UpdateViewCommand { get; set; }
-        
-        public ICommand CreateFileCommand { get; set; }
+
 
         public MainViewModel()
         {
             UpdateViewCommand = new UpdateViewCommand(this);
             CreateFileCommand = new CreateFileCommand(this);
+            StartButtonClick = new StartExperimentCommand(this);
+            CheckAllValves = new CheckAllValvesCommand(this);
 
             this.SelectedViewModel = new SetupViewModel();
         }

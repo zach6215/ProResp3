@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProResp3.ViewModels
 {
-    using ProResp3.Models;
+    using ProResp3.Collections;
 
     internal class SetupViewModel : BaseViewModel
     {
