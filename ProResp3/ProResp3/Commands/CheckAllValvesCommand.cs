@@ -12,7 +12,7 @@ namespace ProResp3.Commands
 
     internal class CheckAllValvesCommand : ICommand
     {
-        private MccBoardConnection mccBoard;
+        private MccBoardConnection mccBoard_connect;
         private MainViewModel viewModel;
         public event EventHandler? CanExecuteChanged;
 
@@ -30,14 +30,15 @@ namespace ProResp3.Commands
         {
             try
             {
-                mccBoard = new MccBoardConnection();
+                mccBoard_connect = new MccBoardConnection();
 
             }
             catch
             {
                 return;
             }
-
+           
         }
+        
     }
 }

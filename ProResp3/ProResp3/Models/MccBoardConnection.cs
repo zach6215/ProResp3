@@ -1,42 +1,72 @@
-﻿using System;
+﻿using MccDaq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Documents;
+using System.Threading;
 
 namespace ProResp3.Models
 {
-    //using MccDaq;
+    using MccDaq;
 
     internal class MccBoardConnection
     {
-        //MccBoard board = new MccBoard(0);
+        public MccBoard board = new MccBoard(0);
 
-        //void config()
-        //{
 
-        //}
-        //void ConfigurePort(MccBoard board, DigitalPortType portType)
-        //{
-        //}
+        public void CheckAllPorts()
+        {
+            config();
+            int numPorts = 24;
 
-        //void SetPort(MccBoard board, int portNum, DigitalLogicState state)
-        //{
+            for (int i = 0; i < numPorts; i++)
+            {
 
-        //}
+                Console.WriteLine("Testing port " + i);
 
-        //private void open(int current)
-        //{
+                SetPort(board, i, DigitalLogicState.High);
+                Thread.Sleep(2000);
 
-        //}
-        //private void close(int current)
-        //{
+                SetPort(board, i, DigitalLogicState.Low);
+            }
+        }
+        public void config()
+        {
 
-        //}
-        //private void TurnOffAllPorts()
-        //{
+            ConfigurePort(board, DigitalPortType.FirstPortA);
+            ConfigurePort(board, DigitalPortType.FirstPortB);
+            ConfigurePort(board, DigitalPortType.FirstPortCH);
+            ConfigurePort(board, DigitalPortType.FirstPortCL);
+        }
+        public void ConfigurePort(MccBoard board, DigitalPortType portType)
+        {
+            DigitalPortDirection direction = DigitalPortDirection.DigitalOut;
+            board.DConfigPort(portType, direction);
+        }
 
-        //}
+        public void SetPort(MccBoard board, int portNum, DigitalLogicState state)
+        {
+            board.DBitOut(DigitalPortType.FirstPortA, portNum, state);
+        }
+
+        public void open(int current)
+        {
+            SetPort(board, current, DigitalLogicState.High);
+        }
+        public void close(int current)
+        {
+            SetPort(board, current, DigitalLogicState.Low);
+        }
+        public void TurnOffAllPorts()
+        {
+            config();
+            // Turn off all ports
+            for (int i = 0; i < 24; i++)
+            {
+                SetPort(board, i, DigitalLogicState.Low);
+            }
+        }
     }
 }
