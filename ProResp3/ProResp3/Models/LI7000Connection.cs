@@ -165,7 +165,6 @@ namespace ProResp3.Models
                 responseData = this.GetResponse(this.dataReader);
             }
 
-
             return responseData;
         }
 
@@ -180,7 +179,6 @@ namespace ProResp3.Models
                     {
                         wholeLI7000.ReleaseInterface(0);
                     }
-
                     LI7000.Close();
                 }
             }

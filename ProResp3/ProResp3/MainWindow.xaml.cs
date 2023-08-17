@@ -38,9 +38,14 @@ namespace ProResp3
                 CheckBox newCheckBox = new CheckBox();
                 newCheckBox.Name = "valve" + (i + 1).ToString() + "CheckBox";
                 newCheckBox.Content = "Valve " + (i + 1).ToString();
-                checkBoxes.Add(newCheckBox);
+                
 
-                //Add databinding to checkbox
+                Binding valveCheckBinding = new Binding();
+                valveCheckBinding.Path = new PropertyPath("CheckedValves[" + i.ToString() + "]");
+                valveCheckBinding.Mode = BindingMode.TwoWay;
+                newCheckBox.SetBinding(CheckBox.IsCheckedProperty, valveCheckBinding);
+
+                checkBoxes.Add(newCheckBox);
             }
 
             return checkBoxes;
