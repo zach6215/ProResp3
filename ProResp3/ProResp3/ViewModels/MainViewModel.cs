@@ -16,7 +16,8 @@ namespace ProResp3.ViewModels
 
         private BaseViewModel _selectedViewModel;
         private string _dataFilePath = string.Empty;
-        public CheckedValvesCollection _checkBoxWeightRelationship;
+        private CheckedValvesCollection _checkedValves = new CheckedValvesCollection(Globals.NumValves);
+        private bool _experimentRunning;
         public Experiment experiment;
 
         public ICommand UpdateViewCommand { get; set; }
@@ -40,10 +41,20 @@ namespace ProResp3.ViewModels
             set { _dataFilePath = value; OnPropertyChanged(nameof(DataFilePath)); }
         }
 
+        public bool ExperimentRunning
+        {
+            get { return _experimentRunning; }
+            set { _experimentRunning = value; OnPropertyChanged(nameof(ExperimentRunning)); }
+        }
 
+        public CheckedValvesCollection CheckedValves
+        {
+            get { return _checkedValves; }
+        }
 
         public MainViewModel()
         {
+            ExperimentRunning = false;
             UpdateViewCommand = new UpdateViewCommand(this);
             CreateFileCommand = new CreateFileCommand(this);
             StartButtonClick = new StartExperimentCommand(this);
