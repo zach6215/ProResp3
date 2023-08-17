@@ -37,7 +37,7 @@ namespace ProResp3.Commands
             {
                 return;
             }
-           mccBoard.CheckAllPorts();
+            mccBoard.CheckAllPorts();
         }
         
     }
