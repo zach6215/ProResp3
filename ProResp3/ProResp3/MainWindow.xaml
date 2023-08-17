@@ -56,7 +56,8 @@
                         Valve Switch Time (min.):
                 </TextBlock>
                 <TextBox Grid.Column="1" Grid.Row="0" Name="valveSwitchTextBox"
-                             MinWidth="30" MaxHeight="20" MaxLines="1"/>
+                             MinWidth="30" MaxHeight="20" MaxLines="1"
+                         Text="{Binding Path=ValveSwitchTime, Mode=TwoWay}"/>
             </Grid>
             <Button x:Name="startButton" Content="Start Experiment"
                     Command="{Binding StartButtonClick}" CommandParameter="Experiment"

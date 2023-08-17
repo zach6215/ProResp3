@@ -13,12 +13,16 @@ namespace ProResp3.Models
 
     internal class MccBoardConnection
     {
-        public MccBoard board = new MccBoard(0);
+        public MccBoard board;
 
+        public MccBoardConnection()
+        {
+            this.board = new MccBoard(0);
+            this.config();
+        }
 
         public void CheckAllPorts()
         {
-            config();
             int numPorts = 24;
 
             for (int i = 0; i < numPorts; i++)
@@ -61,7 +65,6 @@ namespace ProResp3.Models
         }
         public void TurnOffAllPorts()
         {
-            config();
             // Turn off all ports
             for (int i = 0; i < 24; i++)
             {

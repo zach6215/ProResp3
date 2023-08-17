@@ -1,21 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ProResp3
 {
     using ProResp3.ViewModels;
+    using System.Diagnostics;
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -38,12 +31,14 @@ namespace ProResp3
                 CheckBox newCheckBox = new CheckBox();
                 newCheckBox.Name = "valve" + (i + 1).ToString() + "CheckBox";
                 newCheckBox.Content = "Valve " + (i + 1).ToString();
+                newCheckBox.DataContext = DataContext;
                 
 
                 Binding valveCheckBinding = new Binding();
-                valveCheckBinding.Path = new PropertyPath("CheckedValves[" + i.ToString() + "]");
-                valveCheckBinding.Mode = BindingMode.TwoWay;
+                valveCheckBinding.Path = new PropertyPath("CheckedValves[" + i + "]");
+                valveCheckBinding.Mode = BindingMode.OneWayToSource;
                 newCheckBox.SetBinding(CheckBox.IsCheckedProperty, valveCheckBinding);
+                BindingOperations.SetBinding(newCheckBox, CheckBox.IsCheckedProperty, valveCheckBinding);
 
                 checkBoxes.Add(newCheckBox);
             }

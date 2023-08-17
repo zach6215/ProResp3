@@ -58,12 +58,12 @@ namespace ProResp3.Views
                     newControl.textBox.SetBinding(TextBox.TextProperty, weightBinding);
 
                     //Set textBox.IsEnabled binding to 
-                    Binding checkBoxBinding = new Binding();
-                    checkBoxBinding.RelativeSource = new RelativeSource(RelativeSourceMode.FindAncestor, typeof(Grid), 2);
-                    checkBoxBinding.Path = new PropertyPath("IsChecked");
-                    //checkBoxBinding.Source = FindName("valve" + valveNum.ToString() + "CheckBox");
-                    //checkBoxBinding.ElementName = "valve" + valveNum.ToString() + "CheckBox";
-                    newControl.textBox.SetBinding(TextBox.IsEnabledProperty, checkBoxBinding);
+                    //Binding checkBoxBinding = new Binding();
+                    //checkBoxBinding.RelativeSource = new RelativeSource(RelativeSourceMode.FindAncestor, typeof(Grid), 2);
+                    //checkBoxBinding.Path = new PropertyPath("IsChecked");
+                    ////checkBoxBinding.Source = FindName("valve" + valveNum.ToString() + "CheckBox");
+                    ////checkBoxBinding.ElementName = "valve" + valveNum.ToString() + "CheckBox";
+                    //newControl.textBox.SetBinding(TextBox.IsEnabledProperty, checkBoxBinding);
 
 
                     Grid.SetColumn(newControl, i);

@@ -31,13 +31,13 @@ namespace ProResp3.Commands
             try
             {
                 mccBoard = new MccBoardConnection();
-
+                mccBoard.CheckAllPorts();
             }
             catch
             {
                 return;
             }
-            mccBoard.CheckAllPorts();
+            
         }
         
     }

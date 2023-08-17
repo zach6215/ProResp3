@@ -18,6 +18,7 @@ namespace ProResp3.ViewModels
         private string _dataFilePath = string.Empty;
         private CheckedValvesCollection _checkedValves = new CheckedValvesCollection(Globals.NumValves);
         private bool _experimentRunning;
+        private string _valveSwitchTime;
         public Experiment experiment;
 
         public ICommand UpdateViewCommand { get; set; }
@@ -52,9 +53,16 @@ namespace ProResp3.ViewModels
             get { return _checkedValves; }
         }
 
+        public string ValveSwitchTime
+        {
+            get { return _valveSwitchTime; }
+            set { _valveSwitchTime = value; OnPropertyChanged(nameof(ValveSwitchTime)); }
+        }
+
         public MainViewModel()
         {
             ExperimentRunning = false;
+            ValveSwitchTime = "15";
             UpdateViewCommand = new UpdateViewCommand(this);
             CreateFileCommand = new CreateFileCommand(this);
             StartButtonClick = new StartExperimentCommand(this);

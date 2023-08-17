@@ -16,7 +16,7 @@ namespace ProResp3.Models
         private double flow;
 
 
-        public int ValveNum { get; private set; }
+        public int ValveNum { get; set; }
         public DateTime MeasurementDateTime { get; internal set; }
 
         public double CO2

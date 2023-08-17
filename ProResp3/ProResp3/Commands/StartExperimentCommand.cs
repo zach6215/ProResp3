@@ -28,10 +28,7 @@ namespace ProResp3.Commands
             if (parameter?.ToString() == "Experiment")
             {
                 //Testing Experiment
-                CheckedValvesCollection testCheckedValvesCollection = new CheckedValvesCollection(Globals.NumValves);
                 ValveWeightCollection testValveWeightCollection = new ValveWeightCollection(Globals.NumValves);
-
-                testCheckedValvesCollection[3] = true;
                 testValveWeightCollection[3] = "0";
 
                 
@@ -41,7 +38,7 @@ namespace ProResp3.Commands
                     {
                         SetupViewModel localSetup = (SetupViewModel)this.viewModel.SelectedViewModel;
 
-                        viewModel.SelectedViewModel = new ExperimentViewModel(this.viewModel.Checked, testValveWeightCollection, "15");
+                        viewModel.SelectedViewModel = new ExperimentViewModel(testValveWeightCollection, this.viewModel);
                     }
                     else
                     {

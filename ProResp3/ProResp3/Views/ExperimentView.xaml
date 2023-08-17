@@ -23,20 +23,21 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <TextBlock x:Name="activeValveTextBlock"
-                               Grid.Column="0" Grid.Row="0">
-                        Active Valve:
+                               Grid.Column="0" Grid.Row="0"
+                           Text="{Binding Path=ActiveValveNum, StringFormat=Active Valve: {0}}">
                 </TextBlock>
                 <TextBlock x:Name="currentCO2TextBlock"
-                               Grid.Column="0" Grid.Row="1">
-                        Current CO2:
+                               Grid.Column="0" Grid.Row="1"
+                           Text="{Binding Path=CurrentCO2, StringFormat=Current CO2: {0}}">
                 </TextBlock>
                 <TextBlock x:Name="currentH2OTextBlock"
-                               Grid.Column="0" Grid.Row="2">
-                        Current H2O:
+                               Grid.Column="0" Grid.Row="2"
+                           Text="{Binding Path=CurrentH2O, StringFormat=Current H2O: {0}}">
+                        
                 </TextBlock>
                 <TextBlock x:Name="currentTempTextBlock"
-                               Grid.Column="0" Grid.Row="3">
-                        Current Temperature:
+                               Grid.Column="0" Grid.Row="3"
+                           Text="{Binding Path=CurrentTemperature, StringFormat=Current Temperature: {0}}">
                 </TextBlock>
                 <TextBlock x:Name="currentFlowTextBlock"
                                Grid.Column="0" Grid.Row="4">
@@ -47,20 +48,20 @@
                         Sample Weight:
                 </TextBlock>
                 <TextBlock x:Name="previousValveTextBlock"
-                               Grid.Column="1" Grid.Row="0">
-                        Previous Valve:
+                               Grid.Column="1" Grid.Row="0"
+                           Text="{Binding Path=PreviousValveNum, StringFormat=Previous Valve: {0}}">
                 </TextBlock>
                 <TextBlock x:Name="finalCO2TextBlock"
-                               Grid.Column="1" Grid.Row="1">
-                        Final CO2:
+                               Grid.Column="1" Grid.Row="1"
+                           Text="{Binding Path=PreviousCO2, StringFormat=Final CO2: {0}}">
                 </TextBlock>
                 <TextBlock x:Name="finalH2OTextBlock"
-                               Grid.Column="1" Grid.Row="2">
-                        Final H2O:
+                               Grid.Column="1" Grid.Row="2"
+                           Text="{Binding Path=PreviousH2O, StringFormat=Final H2O: {0}}">
                 </TextBlock>
                 <TextBlock x:Name="finalTempTextBlock"
-                               Grid.Column="1" Grid.Row="3">
-                        Final Temperature:
+                               Grid.Column="1" Grid.Row="3"
+                           Text="{Binding Path=PreviousTemperature, StringFormat=Final Temperature: {0}}">
                 </TextBlock>
                 <TextBlock x:Name="finalFlowTextBlock"
                                Grid.Column="1" Grid.Row="4">
