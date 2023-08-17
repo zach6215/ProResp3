@@ -27,19 +27,34 @@ namespace ProResp3.Commands
         {
             if (parameter?.ToString() == "Experiment")
             {
+                //Testing Experiment
                 CheckedValvesCollection testCheckedValvesCollection = new CheckedValvesCollection(Globals.NumValves);
                 ValveWeightCollection testValveWeightCollection = new ValveWeightCollection(Globals.NumValves);
 
                 testCheckedValvesCollection[3] = true;
                 testValveWeightCollection[3] = "0";
 
-                //Get experiment variables from setup context and MainViewModel
-                GetExperimentArgs();
+                
+                try
+                {
+                    if (this.viewModel.SelectedViewModel.GetType() == typeof(SetupViewModel))
+                    {
+                        SetupViewModel localSetup = (SetupViewModel)this.viewModel.SelectedViewModel;
 
+                        viewModel.SelectedViewModel = new ExperimentViewModel(this.viewModel.Checked, testValveWeightCollection, "15");
+                    }
+                    else
+                    {
+                        throw new Exception("Error: SelectedViewModel not of type SetupViewModel.");
+                    }
+                }
+                catch (Exception ex)
+                {
 
-                viewModel.SelectedViewModel = new ExperimentViewModel(testCheckedValvesCollection, testValveWeightCollection, "15");
+                }
+
+                this.viewModel.ExperimentRunning = true;
             }
-            
         }
 
         void GetExperimentArgs()

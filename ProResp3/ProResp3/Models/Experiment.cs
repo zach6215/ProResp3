@@ -13,12 +13,15 @@ namespace ProResp3.Models
     {
         private LI7000Connection _LI7000;
         private Valve _activeValve;
+        private DateTime startDate;
         private List<int> _activeValveNums = new List<int>();
+        private List<double> _valveWeights = new List<double>();
         private int _currentValveIndex;
         private int _valveSwitchTimeMin;
         private int _dataPollTimeSec;
         DispatcherTimer pollDataTimer;
         DispatcherTimer valveSwitchTimer;
+        private DataFile dataFile;
 
         public Valve ActiveValveData { get { return _activeValve; } set { _activeValve = value; } }
         public string DataHeader { get; private set; }
@@ -27,6 +30,7 @@ namespace ProResp3.Models
         public Experiment(List<int> argActiveValveNums, List<double> argValveWeights, int argValveSwitchTimeMin)
         {
             _activeValveNums = argActiveValveNums;
+            _valveWeights = argValveWeights;
             _valveSwitchTimeMin = argValveSwitchTimeMin;
 
             _LI7000 = new LI7000Connection();
@@ -34,6 +38,16 @@ namespace ProResp3.Models
             this.pollDataTimer = new DispatcherTimer();
             this.pollDataTimer.Interval = TimeSpan.FromSeconds(this._dataPollTimeSec);
             this.pollDataTimer.Tick += this.PollData;
+
+            dataFile = new DataFile()
+
+        }
+
+        private void SetDataHeader()
+        {
+            DataHeader = "Day of Experiment\tDate (mm/dd/yyyy) ";
+            
+
 
         }
 
@@ -43,16 +57,20 @@ namespace ProResp3.Models
             string response;
 
             response = _LI7000.Poll();
+
+
+
+
             ActiveValveData = resultValve;
 
         }
 
-        void Start()
+        public void Start()
         {
 
         }
 
-        void SwitchValve()
+        public void SwitchValve()
         {
 
         }
