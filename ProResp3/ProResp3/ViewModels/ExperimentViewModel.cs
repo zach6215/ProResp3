@@ -12,15 +12,17 @@ namespace ProResp3.ViewModels
 
     public class ExperimentViewModel : BaseViewModel
     {
-        Experiment experiment;
+        public Experiment experiment;
         string _activeValveNum;
         string _currentCO2;
         string _currentH2O;
         string _currentTemperature;
+        string _currentFlow;
         string _previousValveNum;
         string _previousCO2;
         string _previousH2O;
         string _previousTemperature;
+        string _previousFlow;
 
         public string ActiveValveNum
         {
@@ -56,6 +58,15 @@ namespace ProResp3.ViewModels
             {
                 _currentTemperature = value;
                 OnPropertyChanged(nameof(CurrentTemperature));
+            }
+        }
+        public string CurrentFlow
+        {
+            get { return _currentFlow; }
+            set
+            {
+                _currentFlow = value;
+                OnPropertyChanged(nameof(CurrentFlow));
             }
         }
         public string PreviousValveNum
@@ -94,6 +105,15 @@ namespace ProResp3.ViewModels
                 OnPropertyChanged(nameof(PreviousTemperature));
             }
         }
+        public string PreviousFlow
+        {
+            get { return _previousFlow; }
+            set
+            {
+                _previousFlow = value;
+                OnPropertyChanged(nameof(PreviousFlow));
+            }
+        }
 
         public ExperimentViewModel()
         {
@@ -118,11 +138,19 @@ namespace ProResp3.ViewModels
                 }
             }
 
-            if (activeValvesNums.Count > 0 && int.TryParse(mainViewModel.ValveSwitchTime, out int valveSwitchTime))
+            if (activeValvesNums.Count > 0 && double.TryParse(mainViewModel.ValveSwitchTime, out double valveSwitchTime))
             {
                 experiment = new Experiment(activeValvesNums, valveWeights, valveSwitchTime, mainViewModel.DataFilePath);
                 experiment.PropertyChanged += this.ExperimentUpdated;
                 experiment.Start();
+            }
+            else if (activeValvesNums.Count <= 0)
+            {
+                throw new Exception("Error: No Valve Selected.");
+            }
+            else if (!double.TryParse(mainViewModel.ValveSwitchTime, out double valveSwitchTimeInvalid))
+            {
+                throw new Exception("Error: Invalid Valve Switch Time.");
             }
 
             //Initialize previous valve data
@@ -130,6 +158,7 @@ namespace ProResp3.ViewModels
             PreviousCO2 = "n/a";
             PreviousH2O = "n/a";
             PreviousTemperature = "n/a";
+            PreviousFlow = "n/a";
         }
 
         public void ExperimentUpdated(object sender, PropertyChangedEventArgs e)
@@ -147,6 +176,7 @@ namespace ProResp3.ViewModels
                 CurrentCO2 = this.experiment.ActiveValve.CO2.ToString() + " " + this.experiment.ActiveValve.CO2Units;
                 CurrentH2O = this.experiment.ActiveValve.H2O.ToString() + " " + this.experiment.ActiveValve.H2OUnits;
                 CurrentTemperature = this.experiment.ActiveValve.Temperature.ToString() + " " + this.experiment.ActiveValve.TemperatureUnits;
+                CurrentFlow = this.experiment.ActiveValve.Flow.ToString() + " " + this.experiment.ActiveValve.FlowUnits;
             }
         }
     }

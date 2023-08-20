@@ -40,6 +40,10 @@ namespace ProResp3
                 newCheckBox.SetBinding(CheckBox.IsCheckedProperty, valveCheckBinding);
                 BindingOperations.SetBinding(newCheckBox, CheckBox.IsCheckedProperty, valveCheckBinding);
 
+                Binding isEnabledBinding = new Binding();
+                isEnabledBinding.Path = new PropertyPath("NotExperimentRunning");
+                BindingOperations.SetBinding(newCheckBox, CheckBox.IsEnabledProperty, isEnabledBinding);
+
                 checkBoxes.Add(newCheckBox);
             }
 

@@ -39,6 +39,7 @@ namespace ProResp3.Commands
                         SetupViewModel localSetup = (SetupViewModel)this.viewModel.SelectedViewModel;
 
                         viewModel.SelectedViewModel = new ExperimentViewModel(testValveWeightCollection, this.viewModel);
+                        this.viewModel.ExperimentRunning = true;
                     }
                     else
                     {
@@ -47,10 +48,10 @@ namespace ProResp3.Commands
                 }
                 catch (Exception ex)
                 {
-
+                    //this.viewModel.MessageBox_Show();
                 }
 
-                this.viewModel.ExperimentRunning = true;
+                
             }
         }
 

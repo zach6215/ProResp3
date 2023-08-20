@@ -40,7 +40,8 @@
                            Text="{Binding Path=CurrentTemperature, StringFormat=Current Temperature: {0}}">
                 </TextBlock>
                 <TextBlock x:Name="currentFlowTextBlock"
-                               Grid.Column="0" Grid.Row="4">
+                               Grid.Column="0" Grid.Row="4"
+                           Text="{Binding Path=CurrentFlow, StringFormat=Current Flow: {0}}">
                         Current Flow:
                 </TextBlock>
                 <TextBlock x:Name="currentWeightTextBlock"
@@ -64,8 +65,8 @@
                            Text="{Binding Path=PreviousTemperature, StringFormat=Final Temperature: {0}}">
                 </TextBlock>
                 <TextBlock x:Name="finalFlowTextBlock"
-                               Grid.Column="1" Grid.Row="4">
-                        Final Flow:
+                               Grid.Column="1" Grid.Row="4"
+                           Text="{Binding Path=PreviousFlow, StringFormat=Final Flow: {0}}">
                 </TextBlock>
                 <TextBlock x:Name="previousWeightTextBlock"
                                Grid.Column="1" Grid.Row="5" >

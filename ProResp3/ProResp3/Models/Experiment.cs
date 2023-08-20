@@ -21,7 +21,7 @@ namespace ProResp3.Models
         private List<int> _activeValveNums = new List<int>();
         private List<double> _valveWeights = new List<double>();
         private int _activeValveIndex;
-        private int _valveSwitchTimeMin;
+        private double _valveSwitchTimeMin;
         private int _dataPollTimeSec;
         DispatcherTimer pollDataTimer;
         DispatcherTimer valveSwitchTimer;
@@ -33,7 +33,7 @@ namespace ProResp3.Models
         public Valve ActiveValve { get { return _activeValve; } set { _activeValve = value; } }
         public string DataHeader { get; private set; }
 
-        public Experiment(List<int> argActiveValveNums, List<double> argValveWeights, int argValveSwitchTimeMin, string argDataFilePath)
+        public Experiment(List<int> argActiveValveNums, List<double> argValveWeights, double argValveSwitchTimeMin, string argDataFilePath)
         {
             _activeValveNums = argActiveValveNums;
             _valveWeights = argValveWeights;
@@ -65,7 +65,7 @@ namespace ProResp3.Models
                 }
                 else if (LI7000Units[i].Contains("T"))
                 {
-                    LI7000Units[i] = LI7000Units[i].Substring(LI7000Units[i].IndexOf(' ') + 1);
+                    LI7000Units[i] = LI7000Units[i].Substring(LI7000Units[i].IndexOf(' ') + 1).Replace("C", "°C");
                     this._activeValve.TemperatureUnits = LI7000Units[i];
                 }
             }
@@ -87,12 +87,13 @@ namespace ProResp3.Models
 
         private void SetDataHeader()
         {
-            this.DataHeader = "Day of Experiment\tDate (mm/dd/yyyy) ";
+            this.DataHeader = "Day of Experiment\tDate (mm/dd/yyyy)\tTime (hh:mm)\tValve\t";
             this.DataHeader += this._LI7000.DataHeader;
 
             this.DataHeader = this.DataHeader.Replace("ppm", "(ppm)");
             this.DataHeader = this.DataHeader.Replace("mm/m", "(mm/m)");
-            this.DataHeader = this.DataHeader.Replace("T C", "Temp. (C)");
+            this.DataHeader = this.DataHeader.Replace("T C", "Temperature (°C)");
+            this.DataHeader += "\tFlow ";
         }
 
         void PollData(object sender, EventArgs e)
@@ -127,12 +128,16 @@ namespace ProResp3.Models
 
         public void Start()
         {
+            this._board.TurnOffAllPorts();
             this.pollDataTimer?.Start();
             this.valveSwitchTimer?.Start();
+            this.startDate = DateTime.Now;
+            this.PollData(this, new EventArgs());
         }
 
         public void SwitchValve(object sender, EventArgs e)
         {
+            this.WriteData();
             this._board.close(this.ActiveValve.ValveNum);
 
             if (this._activeValveIndex + 1 < this._activeValveNums.Count)
@@ -146,8 +151,6 @@ namespace ProResp3.Models
 
             this._board.open(this._activeValveNums[this._activeValveIndex]);
             this.ActiveValve.ValveNum = this._activeValveNums[this._activeValveIndex];
-
-            this.WriteData();
 
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ActiveValve"));
 
@@ -166,15 +169,25 @@ namespace ProResp3.Models
         private void WriteData()
         {
             string data = string.Empty;
+            DateTime currentDateTime = DateTime.Now;
+            TimeSpan dayOfExperiment = currentDateTime.Subtract(this.startDate);
 
-            data = DateTime.Now.ToString();
-            data += "\t" + (this.ActiveValve.ValveNum + 1).ToString();
+            data = dayOfExperiment.Days.ToString() + "\t";
+            data += currentDateTime.ToString("MM/dd/yyyy\tHH:mm") + "\t";
+            data += this.ActiveValve.GetDataString();
+
 
             using (StreamWriter sw = new StreamWriter(this._dataFilePath, true))
             {
                 sw.WriteLine(data);
                 sw.Close();
             }
+        }
+
+        public void Stop()
+        {
+            _board.TurnOffAllPorts();
+            //_LI7000.CloseConnection();  Breaks if poll data event is called after. Seems to close by itself fine.
         }
     }
 }

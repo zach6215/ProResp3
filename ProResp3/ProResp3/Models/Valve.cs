@@ -47,5 +47,14 @@ namespace ProResp3.Models
         {
             this.ValveNum = argValveNum;
         }
+
+        public string GetDataString()
+        {
+            string data = string.Empty;
+
+            data += (this.ValveNum+1) + "\t" + this.CO2 + "\t" + this.H2O + "\t" + this.Temperature + "\t" + this.Flow;
+
+            return data;
+        }
     }
 }

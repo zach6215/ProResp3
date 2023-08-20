@@ -10,6 +10,7 @@ namespace ProResp3.ViewModels
     public class BaseViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
+        //public event EventHandler<MvvmMessageBoxEventArgs> MessageBoxRequest;
 
         protected void OnPropertyChanged(string propertyName)
         {

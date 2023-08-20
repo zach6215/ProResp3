@@ -40,9 +40,11 @@
             </Grid.RowDefinitions>
             <Button x:Name="checkAllValvesButton" Content="Check All Valves"
                     Grid.Column="0" Grid.Row="1"
-                    Command="{Binding CheckAllValves}"/>
+                    Command="{Binding CheckAllValves}"
+                    IsEnabled="{Binding NotExperimentRunning}"/>
             <Button x:Name="createDataFileButton" Content="Create Data File"
                     Command="{Binding CreateFileCommand}" CommandParameter="DataFile"
+                    IsEnabled="{Binding NotExperimentRunning}"
                     Grid.Column="0" Grid.Row="3"/>
             <Grid Grid.Column="0" Grid.Row="5">
                 <Grid.ColumnDefinitions>
@@ -57,10 +59,12 @@
                 </TextBlock>
                 <TextBox Grid.Column="1" Grid.Row="0" Name="valveSwitchTextBox"
                              MinWidth="30" MaxHeight="20" MaxLines="1"
-                         Text="{Binding Path=ValveSwitchTime, Mode=TwoWay}"/>
+                         Text="{Binding Path=ValveSwitchTime, Mode=TwoWay}"
+                         IsEnabled="{Binding NotExperimentRunning}"/>
             </Grid>
             <Button x:Name="startButton" Content="Start Experiment"
                     Command="{Binding StartButtonClick}" CommandParameter="Experiment"
+                    IsEnabled="{Binding NotExperimentRunning}"
                     Grid.Column="0" Grid.Row="7"/>
         </Grid>
         <Grid Grid.Column="3" Grid.Row="1">
@@ -90,7 +94,8 @@
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
             <Button x:Name="stopButton" Content="Stop" 
-                    Command="{Binding UpdateViewCommand}" CommandParameter="Setup"
+                    Command="{Binding StopButtonClick}" CommandParameter="Setup"
+                    IsEnabled="{Binding ExperimentRunning}"
                     Grid.Column="0" Grid.Row="1">
             </Button>
         </Grid>

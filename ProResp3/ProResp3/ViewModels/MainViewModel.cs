@@ -21,10 +21,10 @@ namespace ProResp3.ViewModels
         private string _valveSwitchTime;
         public Experiment experiment;
 
-        public ICommand UpdateViewCommand { get; set; }
         public ICommand CreateFileCommand { get; set; }
         public ICommand StartButtonClick { get; set; }
         public ICommand CheckAllValves { get; set; }
+        public ICommand StopButtonClick { get; set; }
 
 
         public BaseViewModel SelectedViewModel
@@ -45,7 +45,18 @@ namespace ProResp3.ViewModels
         public bool ExperimentRunning
         {
             get { return _experimentRunning; }
-            set { _experimentRunning = value; OnPropertyChanged(nameof(ExperimentRunning)); }
+            set 
+            { 
+                _experimentRunning = value;
+                NotExperimentRunning = value;
+                OnPropertyChanged(nameof(ExperimentRunning));
+            }
+        }
+
+        public bool NotExperimentRunning
+        {
+            get { return !_experimentRunning; }
+            private set { _experimentRunning = value; OnPropertyChanged(nameof(NotExperimentRunning)); }
         }
 
         public CheckedValvesCollection CheckedValves
@@ -63,10 +74,11 @@ namespace ProResp3.ViewModels
         {
             ExperimentRunning = false;
             ValveSwitchTime = "15";
-            UpdateViewCommand = new UpdateViewCommand(this);
             CreateFileCommand = new CreateFileCommand(this);
             StartButtonClick = new StartExperimentCommand(this);
             CheckAllValves = new CheckAllValvesCommand(this);
+            StopButtonClick = new StopExperimentCommand(this);
+
 
             this.SelectedViewModel = new SetupViewModel();
         }
