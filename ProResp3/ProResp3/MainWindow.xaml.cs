@@ -6,8 +6,10 @@ using System.Windows.Data;
 
 namespace ProResp3
 {
+    using ProResp3.CustomEventArgs;
     using ProResp3.ViewModels;
     using System.Diagnostics;
+    using System.Text.RegularExpressions;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -20,6 +22,12 @@ namespace ProResp3
 
             DataContext = new MainViewModel();
             this.selectValveListBox.ItemsSource = MakeValveCheckBoxes(Globals.NumValves);
+            (this.DataContext as MainViewModel).MessageBoxRequest += new EventHandler<MvvmMessageBoxEventArgs>(MyView_MessageBoxRequest);
+        }
+
+        void MyView_MessageBoxRequest(object sender, MvvmMessageBoxEventArgs e)
+        {
+            e.Show();
         }
 
         private List<CheckBox> MakeValveCheckBoxes(int newAmount)
@@ -36,7 +44,8 @@ namespace ProResp3
 
                 Binding valveCheckBinding = new Binding();
                 valveCheckBinding.Path = new PropertyPath("CheckedValves[" + i + "]");
-                valveCheckBinding.Mode = BindingMode.OneWayToSource;
+                valveCheckBinding.Mode = BindingMode.TwoWay;
+                valveCheckBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
                 newCheckBox.SetBinding(CheckBox.IsCheckedProperty, valveCheckBinding);
                 BindingOperations.SetBinding(newCheckBox, CheckBox.IsCheckedProperty, valveCheckBinding);
 
@@ -56,6 +65,12 @@ namespace ProResp3
             MainViewModel test1 = test.DataContext as MainViewModel;
             test1.CloseButtonClick.Execute("CloseButton");
             return;
+        }
+
+        private void valveSwitchTextBox_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9.]");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }

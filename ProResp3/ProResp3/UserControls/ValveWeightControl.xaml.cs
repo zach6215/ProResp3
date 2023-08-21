@@ -16,6 +16,8 @@ using System.Windows.Shapes;
 namespace ProResp3.UserControls
 {
     using System.ComponentModel;
+    using System.Text.RegularExpressions;
+
     /// <summary>
     /// Interaction logic for ValveWeightControl.xaml
     /// </summary>
@@ -24,6 +26,12 @@ namespace ProResp3.UserControls
         public ValveWeightControl()
         {
             InitializeComponent();
+        }
+
+        private void textBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9.]");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }

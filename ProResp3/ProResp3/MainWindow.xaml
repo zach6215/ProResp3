@@ -60,7 +60,7 @@
                 <TextBox Grid.Column="1" Grid.Row="0" Name="valveSwitchTextBox"
                              MinWidth="30" MaxHeight="20" MaxLines="1"
                          Text="{Binding Path=ValveSwitchTime, Mode=TwoWay}"
-                         IsEnabled="{Binding NotExperimentRunning}"/>
+                         IsEnabled="{Binding NotExperimentRunning}" PreviewTextInput="valveSwitchTextBox_PreviewTextInput"/>
             </Grid>
             <Button x:Name="startButton" Content="Start Experiment"
                     Command="{Binding StartButtonClick}" CommandParameter="Experiment"
@@ -85,6 +85,8 @@
                      Grid.Column="0" Grid.Row="1">
             </ListBox>
             <Button x:Name="selectAllValvesButton" Content="Select All Valves"
+                    Command="{Binding SelectAllValves}"
+                    IsEnabled="{Binding NotExperimentRunning}"
                     Grid.Column="0" Grid.Row="2"/>
         </Grid>
         <Grid Grid.Column="5" Grid.Row="1">

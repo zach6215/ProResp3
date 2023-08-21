@@ -123,7 +123,7 @@ namespace ProResp3.ViewModels
         public ExperimentViewModel(ValveWeightCollection argValveWeights, MainViewModel mainViewModel)
         {
             List <int> activeValvesNums = new List <int>();
-            List <double> valveWeights = new List <double>();
+            List <double?> valveWeights = new List <double?>();
 
             for (int i = 0; i < Globals.NumValves; i++)
             {
@@ -131,9 +131,18 @@ namespace ProResp3.ViewModels
                 {
                     activeValvesNums.Add(i);
 
-                    if (double.TryParse(argValveWeights[i], out double valveWeight))
+                    if (argValveWeights[i] == string.Empty)
                     {
+                        valveWeights.Add(null);
+                    }
+                    else if (double.TryParse(argValveWeights[i], out double valveWeight))
+                    {
+                        
                         valveWeights.Add(valveWeight);
+                    }
+                    else
+                    {
+                        throw new Exception("Error: Invalid weight for Valve " + (i + 1).ToString() + ".");
                     }
                 }
             }

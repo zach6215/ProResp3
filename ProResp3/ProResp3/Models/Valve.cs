@@ -17,7 +17,7 @@ namespace ProResp3.Models
 
 
         public int ValveNum { get; set; }
-        public DateTime MeasurementDateTime { get; internal set; }
+        public double? Weight { get; private set; }
 
         public double CO2
         {
@@ -46,6 +46,12 @@ namespace ProResp3.Models
         public Valve(int argValveNum)
         {
             this.ValveNum = argValveNum;
+        }
+
+        public Valve(int argValveNum, double? argWeight)
+        {
+            this.ValveNum = argValveNum;
+            this.Weight = argWeight;
         }
 
         public string GetDataString()

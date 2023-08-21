@@ -17,6 +17,10 @@ namespace ProResp3.Collections
         public ValveWeightCollection(int size)
         {
             _weights = new string[size];
+            for(int i = 0; i < size; i++)
+            {
+                _weights[i] = string.Empty;
+            }
         }
 
         public string this[int index]

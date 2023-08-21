@@ -10,6 +10,7 @@ namespace ProResp3.ViewModels
     using System.Windows.Input;
     using ProResp3.Collections;
     using ProResp3.Models;
+    using System.Windows;
 
     public class MainViewModel : BaseViewModel
     {
@@ -26,6 +27,7 @@ namespace ProResp3.ViewModels
         public ICommand CheckAllValves { get; set; }
         public ICommand StopButtonClick { get; set; }
         public ICommand CloseButtonClick { get; set; }
+        public ICommand SelectAllValves { get; set; }
 
 
         public BaseViewModel SelectedViewModel
@@ -80,8 +82,14 @@ namespace ProResp3.ViewModels
             CheckAllValves = new CheckAllValvesCommand(this);
             StopButtonClick = new StopExperimentCommand(this);
             CloseButtonClick = new CloseCommand(this);
+            SelectAllValves = new SelectAllValvesCommand(this);
 
             this.SelectedViewModel = new SetupViewModel();
+        }
+
+        public void MessageBoxAnswerProcess(MessageBoxResult result)
+        {
+
         }
     }
 }

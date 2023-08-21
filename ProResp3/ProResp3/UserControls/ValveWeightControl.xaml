@@ -15,7 +15,7 @@
                    VerticalAlignment="Center">
         </TextBlock>
         <TextBox Name="textBox"
-                 Grid.Column="1" VerticalAlignment="Center">
+                 Grid.Column="1" VerticalAlignment="Center" PreviewTextInput="textBox_PreviewTextInput">
         </TextBox>
     </Grid>
 </UserControl>

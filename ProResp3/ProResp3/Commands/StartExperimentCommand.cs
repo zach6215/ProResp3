@@ -9,6 +9,8 @@ using System.Windows.Input;
 namespace ProResp3.Commands
 {
     using ProResp3.Collections;
+    using System.Windows;
+
     internal class StartExperimentCommand : ICommand
     {
         public event EventHandler? CanExecuteChanged;
@@ -26,19 +28,14 @@ namespace ProResp3.Commands
         public void Execute(object? parameter)
         {
             if (parameter?.ToString() == "Experiment")
-            {
-                //Testing Experiment
-                ValveWeightCollection testValveWeightCollection = new ValveWeightCollection(Globals.NumValves);
-                testValveWeightCollection[3] = "0";
-
-                
+            {                
                 try
                 {
                     if (this.viewModel.SelectedViewModel.GetType() == typeof(SetupViewModel))
                     {
                         SetupViewModel localSetup = (SetupViewModel)this.viewModel.SelectedViewModel;
 
-                        viewModel.SelectedViewModel = new ExperimentViewModel(testValveWeightCollection, this.viewModel);
+                        viewModel.SelectedViewModel = new ExperimentViewModel(localSetup.ValveWeights, this.viewModel);
                         this.viewModel.ExperimentRunning = true;
                     }
                     else
@@ -48,16 +45,9 @@ namespace ProResp3.Commands
                 }
                 catch (Exception ex)
                 {
-                    //this.viewModel.MessageBox_Show();
+                    this.viewModel.MessageBox_Show(this.viewModel.MessageBoxAnswerProcess, ex.Message, "Error", System.Windows.MessageBoxButton.OK);
                 }
-
-                
             }
-        }
-
-        void GetExperimentArgs()
-        {
-
         }
     }
 }

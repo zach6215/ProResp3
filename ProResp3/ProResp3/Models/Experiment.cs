@@ -19,7 +19,7 @@ namespace ProResp3.Models
         private Valve _activeValve;
         private DateTime startDate;
         private List<int> _activeValveNums = new List<int>();
-        private List<double> _valveWeights = new List<double>();
+        private List<double?> _valveWeights = new List<double?>();
         private int _activeValveIndex;
         private double _valveSwitchTimeMin;
         private int _dataPollTimeSec;
@@ -33,7 +33,7 @@ namespace ProResp3.Models
         public Valve ActiveValve { get { return _activeValve; } set { _activeValve = value; } }
         public string DataHeader { get; private set; }
 
-        public Experiment(List<int> argActiveValveNums, List<double> argValveWeights, double argValveSwitchTimeMin, string argDataFilePath)
+        public Experiment(List<int> argActiveValveNums, List<double?> argValveWeights, double argValveSwitchTimeMin, string argDataFilePath)
         {
             _activeValveNums = argActiveValveNums;
             _valveWeights = argValveWeights;
@@ -46,7 +46,7 @@ namespace ProResp3.Models
 
             //Activate first valve
             this._board.TurnOffAllPorts();
-            this._activeValve = new Valve(this._activeValveNums.First());
+            this._activeValve = new Valve(this._activeValveNums.First(), this._valveWeights.First());
             this._board.open(this._activeValveNums[this._activeValveIndex]);
 
             //Add units to ActiveValve
@@ -170,18 +170,30 @@ namespace ProResp3.Models
         {
             string data = string.Empty;
             DateTime currentDateTime = DateTime.Now;
+            this.PollData(this, new EventArgs());
             TimeSpan dayOfExperiment = currentDateTime.Subtract(this.startDate);
 
             data = dayOfExperiment.Days.ToString() + "\t";
             data += currentDateTime.ToString("MM/dd/yyyy\tHH:mm") + "\t";
             data += this.ActiveValve.GetDataString();
 
-
             using (StreamWriter sw = new StreamWriter(this._dataFilePath, true))
             {
                 sw.WriteLine(data);
                 sw.Close();
             }
+        }
+
+        private string EquationWithWeight()
+        {
+            string result = string.Empty;
+
+            if (this.ActiveValve.Weight == null)
+            {
+                return "-";
+            }
+
+            return result;
         }
 
         public void Stop()
