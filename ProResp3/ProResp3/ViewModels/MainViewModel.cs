@@ -25,6 +25,7 @@ namespace ProResp3.ViewModels
         public ICommand StartButtonClick { get; set; }
         public ICommand CheckAllValves { get; set; }
         public ICommand StopButtonClick { get; set; }
+        public ICommand CloseButtonClick { get; set; }
 
 
         public BaseViewModel SelectedViewModel
@@ -78,7 +79,7 @@ namespace ProResp3.ViewModels
             StartButtonClick = new StartExperimentCommand(this);
             CheckAllValves = new CheckAllValvesCommand(this);
             StopButtonClick = new StopExperimentCommand(this);
-
+            CloseButtonClick = new CloseCommand(this);
 
             this.SelectedViewModel = new SetupViewModel();
         }

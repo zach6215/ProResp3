@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProResp3"
         mc:Ignorable="d"
-        Title="ProResp | By: Zachary Hall, Abhilash Ambati, Jacob Blauer, and Scott Mattinson" Height="450" Width="800">
+        Title="ProResp | By: Zachary Hall, Abhilash Ambati, Jacob Blauer, and Scott Mattinson" Height="450" Width="800" Closed="Window_Closed">
     <Grid x:Name="Test">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>

@@ -50,5 +50,12 @@ namespace ProResp3
             return checkBoxes;
         }
 
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            Window test = (Window)sender;
+            MainViewModel test1 = test.DataContext as MainViewModel;
+            test1.CloseButtonClick.Execute("CloseButton");
+            return;
+        }
     }
 }

@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace ProResp3.Commands
 {
-    using System.Windows.Input;
     using ProResp3.ViewModels;
-
-    internal class StopExperimentCommand : ICommand
+    using System.Windows.Input;
+    public class CloseCommand : ICommand
     {
+        MainViewModel viewModel;
         public event EventHandler? CanExecuteChanged;
-        private MainViewModel viewModel;
 
-        public StopExperimentCommand(MainViewModel argViewModel)
+        public CloseCommand(MainViewModel argViewModel)
         {
-            this.viewModel = argViewModel;
+            viewModel = argViewModel;
         }
+
         public bool CanExecute(object? parameter)
         {
             return true;
@@ -29,8 +29,6 @@ namespace ProResp3.Commands
             {
                 ExperimentViewModel experimentViewModel = (ExperimentViewModel)this.viewModel.SelectedViewModel;
                 experimentViewModel.experiment?.Stop();
-                this.viewModel.SelectedViewModel = new SetupViewModel();
-                this.viewModel.ExperimentRunning = false;
             }
         }
     }
