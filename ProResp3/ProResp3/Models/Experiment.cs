@@ -31,6 +31,7 @@ namespace ProResp3.Models
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public Valve ActiveValve { get { return _activeValve; } set { _activeValve = value; } }
+        public TimeSpan TimeUntilSwitch { get { return valveSwitchTimer.Interval; } }
         public string DataHeader { get; private set; }
 
         public Experiment(List<int> argActiveValveNums, List<double?> argValveWeights, double argValveSwitchTimeMin, string argDataFilePath)
@@ -173,7 +174,7 @@ namespace ProResp3.Models
             this.PollData(this, new EventArgs());
             TimeSpan dayOfExperiment = currentDateTime.Subtract(this.startDate);
 
-            data = dayOfExperiment.Days.ToString() + "\t";
+            data = (dayOfExperiment.Days + 1).ToString() + "\t";
             data += currentDateTime.ToString("MM/dd/yyyy\tHH:mm") + "\t";
             data += this.ActiveValve.GetDataString();
 
